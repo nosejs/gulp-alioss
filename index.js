@@ -50,11 +50,10 @@ function oss(option) {
                 endpoint: option.endpoint,
                 bucket: option.bucket
             });
-            console.log(fileKey,file.contents);
             oss.put(fileKey,file.contents).then(function (val) {
-              callback('',val);
+              log('OK:', colors.green(fileKey));
             }).catch (function (err) {
-              callback(err,'');
+              log('ERR:', colors.red(fileKey + "\t" + err.code));
             });
         };
         Q.fcall(getFileKey).then(uploadFile);
